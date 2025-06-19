@@ -10,7 +10,7 @@ class TrajectoryDataPublisherNode(Node):
     def __init__(self):
         super().__init__('trajectory_data_publisher')
         
-        self.df = pd.read_csv(f'~/turtlebot3_ws/src/human_trajectory_prediction/data/real_data_cleaned.csv')
+        self.df = pd.read_csv(f'~/htp_ws/src/human_trajectory_prediction/data/real_data_cleaned.csv')
         features = list(self.df.columns)
         features.remove("id_prefix")
         features.remove("workstation")
@@ -30,7 +30,8 @@ class TrajectoryDataPublisherNode(Node):
         row = self.df.iloc[self.current_row]
         
         marker = Marker()
-        
+        marker.header.frame_id = "map"
+        marker.type = Marker.LINE_STRIP
         marker.id = int(float("4" + str(row['trajectory_id'])))
         
         marker.pose.position.x = float(row['x'])
@@ -51,8 +52,8 @@ class TrajectoryDataPublisherNode(Node):
         marker.pose.orientation.w = q_w
 
         timestamp_ns = row['timestamp']
-        marker.header.stamp.sec = timestamp_ns // 1_000_000_000  # Integer division for seconds
-        marker.header.stamp.nanosec = timestamp_ns % 1_000_000_000  # Remainder for nanoseconds
+        marker.header.stamp.sec = int(timestamp_ns // 1_000_000_000)  # Integer division for seconds
+        marker.header.stamp.nanosec = int(timestamp_ns % 1_000_000_000)  # Remainder for nanoseconds
 
         markers = MarkerArray()
 

@@ -24,7 +24,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'trajectory_predictor = human_trajectory_prediction.trajectory_predictor_node:main',
+            'trajectory_predictor = human_trajectory_prediction.trajectory_predictor:main',
             'trajectory_data_publisher = human_trajectory_prediction.trajectory_data_publisher:main',
         ],
     },
