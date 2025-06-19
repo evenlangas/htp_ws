@@ -1,0 +1,17 @@
+# Core scientific computing
+numpy>=1.21.0
+
+# Machine learning framework
+tensorflow==2.13.0
+
+# Data preprocessing and utilities
+scikit-learn==1.3.0
+
+# ROS 2 Python dependencies (installed via ROS)
+# rclpy - available through ROS 2 installation
+# geometry_msgs - available through ROS 2 installation  
+# nav_msgs - available through ROS 2 installation
+# std_msgs - available through ROS 2 installation
+
+# Development and testing
+pytest>=6.0.0

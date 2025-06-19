@@ -1,0 +1,54 @@
+<launch>
+
+    <arg name="filepath" default="/home/cogniman/human-trajectory-prediction/htp_ws/src/trajectory_data/"/>
+    
+    <!-- MIL ceiling 2023.11.20 -->
+    <node pkg="tf2_ros" exec="static_transform_publisher" name="os_pose" output="screen" 
+          args="0 0 14.10 0.0 0.0 3.145 world os_sensor"/>
+
+    <!-- Record bag -->
+    <executable output="screen" cmd="ros2 bag record
+        /cm_od/cloud
+        /cm_mot/object_detection_pose_array
+        /tf
+        /tf_static
+        "/>
+
+    <!-- Record CSV track-->
+    <node
+        pkg="trajectory_logger"
+        exec="trajectory_logger"
+        name="trajectory_logger"
+        output="screen">
+        
+        <!-- Set the csv_filename parameter -->
+        <param name="csv_filename" value="test_1746" />
+    </node>
+
+
+    <!-- <executable output="screen" cmd="
+        ros2 run trajectory_logger trajectory_logger
+        -***-ros-args -p csv_filename:=test_1715
+        "/> -->
+
+
+   <!-- 
+        -d 60
+        /cm_od/cloud
+        /cm_mot/track_markers
+        /cm_mot/object_detection_pose_array
+        -o $(var filepath)/
+        /ouster/metadata
+        /ouster/nearir_image
+        /ouster/nearir_img_2fps
+        /ouster/points
+        /ouster/points_2fps
+        /ouster/points_world_2fps
+        /ouster/range_image
+        /ouster/range_img_2fps
+        /ouster/reflec_image
+        /ouster/reflec_img_2fps
+        /ouster/signal_image
+        /ouster/signal_img_2fps -->
+
+</launch>
